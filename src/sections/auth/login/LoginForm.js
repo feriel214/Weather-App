@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
 // components
 import Iconify from '../../../components/iconify';
+import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
@@ -16,10 +18,12 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
 
   const handleClick = () => {
-    print('username: ', email, 'password:', password);
+   console.log('username: ', email, 'password:', password);
     axios
       .post('http://localhost:5000/signin', { username: email, password: password })
-      .then((response) => navigate('/dashboard', { replace: true }))
+      .then((response) => {console.log('response',response.data)
+       navigate('/dashboard', { replace: true })
+       })
       .catch((error) => {
         this.setState({ errorMessage: error.message });
         console.error('There was an error!', error);
