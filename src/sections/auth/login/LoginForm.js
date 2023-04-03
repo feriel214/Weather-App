@@ -21,7 +21,9 @@ export default function LoginForm() {
    console.log('username: ', email, 'password:', password);
     axios
       .post('http://localhost:5000/signin', { username: email, password: password })
-      .then((response) => navigate('/dashboard', { replace: true }))
+      .then((response) => {console.log('response',response.data)
+       navigate('/dashboard', { replace: true })
+       })
       .catch((error) => {
         this.setState({ errorMessage: error.message });
         console.error('There was an error!', error);

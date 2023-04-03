@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import axios from 'axios'
 // components
 import Iconify from '../../../components/iconify';
 
@@ -16,7 +17,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
 
   const handleClick = () => {
-    print('username: ', email, 'password:', password);
+    
     axios
       .post('http://localhost:5000/signup', { username: email, password: password })
       .then((response) => navigate('/dashboard', { replace: true }))
