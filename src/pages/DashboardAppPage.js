@@ -1,10 +1,11 @@
-import { Helmet } from 'react-helmet-async';
-import { faker } from '@faker-js/faker';
+import { Helmet } from "react-helmet-async";
+import { faker } from "@faker-js/faker";
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { useTheme } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
+import { Grid, Container, Typography } from "@mui/material";
 // components
-import Iconify from '../components/iconify';
+import Iconify from "../components/iconify";
 // sections
 import {
   AppTasks,
@@ -16,14 +17,15 @@ import {
   AppWidgetSummary,
   AppCurrentSubject,
   AppConversionRates,
-} from '../sections/@dashboard/app';
-import Weather from 'src/components/weather/Weather';
+} from "../sections/@dashboard/app";
+import Weather from "src/components/weather/Weather";
 
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-
+  const location = useLocation();
+  // const loggedUser = location.state.loggedUser;
   return (
     <>
       <Helmet>
@@ -31,7 +33,7 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Weather />
+        <Weather userCountry={location.state.userCountry} />
         {/**  <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />

@@ -17,7 +17,7 @@ import useResponsive from "../hooks/useResponsive";
 import Logo from "../components/logo";
 import Iconify from "../components/iconify";
 // sections
-import { LoginForm } from "../sections/auth/login";
+import SignupForm from "src/sections/auth/login/SignupForm";
 
 // ----------------------------------------------------------------------
 
@@ -49,16 +49,16 @@ const StyledContent = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage() {
+export default function SignupPage() {
   const mdUp = useResponsive("up", "md");
   const navigate = useNavigate();
-  const handleSignUp = () => {
-    navigate("/signup", { replace: true });
+  const handleSignIn = () => {
+    navigate("/login", { replace: true });
   };
   return (
     <>
       <Helmet>
-        <title> Login </title>
+        <title> Register Account </title>
       </Helmet>
 
       <StyledRoot>
@@ -76,11 +76,10 @@ export default function LoginPage() {
         <Container maxWidth="sm">
           <StyledContent>
             <Typography variant="h4" gutterBottom>
-              Login Account
+              Sign Up
             </Typography>
 
-            <LoginForm />
-
+            <SignupForm />
             <Stack
               direction="row"
               alignItems="center"
@@ -88,7 +87,7 @@ export default function LoginPage() {
               sx={{ my: 1 }}
             >
               <Link variant="subtitle2" underline="hover">
-                <span onClick={handleSignUp}>you already have an account</span>
+                <span onClick={handleSignIn}>create an account</span>
               </Link>
             </Stack>
           </StyledContent>

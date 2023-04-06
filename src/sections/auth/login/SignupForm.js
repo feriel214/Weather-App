@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import UserContext from "src/user-context";
 // @mui
 import {
   Link,
@@ -12,39 +10,32 @@ import {
   Checkbox,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-
+import axios from "axios";
 // components
 import Iconify from "../../../components/iconify";
-import axios from "axios";
+
 // ----------------------------------------------------------------------
 
-export default function LoginForm() {
+export default function SignupForm() {
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("Tunisia");
-  const user = { name: "John Doe" }; // or get user data from some other source
-  const setUser = useContext(UserContext);
+
   const handleClick = () => {
-    console.log("username: ", email, "password:", password);
     axios
-      .post("http://localhost:5000/signin", {
+      .post("http://localhost:5000/signup", {
         username: email,
         password: password,
       })
-      .then((response) => {
-        console.log("response", response.data);
-
-        setUser(user);
-        // navigate("/dashboard", { state: { loggedUser: email } }); //country by default
-        navigate("/dashboard", { state: { userCountry: country } });
-      })
+      .then((response) => navigate("/dashboard", { replace: true }))
       .catch((error) => {
         this.setState({ errorMessage: error.message });
         console.error("There was an error!", error);
       });
   };
+
   return (
     <>
       <Stack spacing={3}>
@@ -80,26 +71,17 @@ export default function LoginForm() {
             ),
           }}
         />
-        <TextField
-          name="country"
-          label="Country"
-          value={country}
-          onChange={(e) => {
-            setCountry(e.target.value);
-          }}
-        />
       </Stack>
-
       <Stack sx={{ my: 3 }}>
         <LoadingButton
           fullWidth
-          size="large"
+          size="20px"
           type="submit"
           variant="contained"
-          style={{ "background-color": "#ffbc01" }}
           onClick={handleClick}
+          style={{ "background-color": "#ffbc01" }}
         >
-          Login
+          Sign Up
         </LoadingButton>
       </Stack>
     </>
