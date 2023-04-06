@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as React from "react";
 // @mui
 import {
   Link,
@@ -10,32 +11,44 @@ import {
   Checkbox,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
 import axios from "axios";
-// components
-import Iconify from "../../../components/iconify";
 
-// ----------------------------------------------------------------------
+import Iconify from "../../../components/iconify";
 
 export default function SignupForm() {
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [country, setCountry] = useState("Tunisia");
+  const [error, setError] = useState(false);
   const handleClick = () => {
     axios
       .post("http://localhost:5000/signup", {
         username: email,
         password: password,
       })
-      .then((response) => navigate("/dashboard", { replace: true }))
+      .then((response) =>
+        navigate("/dashboard", { state: { userCountry: country } })
+      )
       .catch((error) => {
+        setError(true);
+        setOpen(true);
         this.setState({ errorMessage: error.message });
         console.error("There was an error!", error);
       });
   };
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpen(false);
+  };
   return (
     <>
       <Stack spacing={3}>
@@ -71,6 +84,14 @@ export default function SignupForm() {
             ),
           }}
         />
+        <TextField
+          name="country"
+          label="Country"
+          value={country}
+          onChange={(e) => {
+            setCountry(e.target.value);
+          }}
+        />
       </Stack>
       <Stack sx={{ my: 3 }}>
         <LoadingButton
@@ -84,6 +105,44 @@ export default function SignupForm() {
           Sign Up
         </LoadingButton>
       </Stack>
+
+      {error && (
+        <>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+          >
+            <MuiAlert
+              onClose={handleClose}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              Alerady exist !
+            </MuiAlert>
+          </Snackbar>
+        </>
+      )}
+
+      {!error && (
+        <>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+          >
+            <Alert
+              onClose={handleClose}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Account Sucessfully created !
+            </Alert>
+          </Snackbar>
+        </>
+      )}
     </>
   );
 }

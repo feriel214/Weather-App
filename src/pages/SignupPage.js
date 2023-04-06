@@ -57,10 +57,6 @@ export default function SignupPage() {
   };
   return (
     <>
-      <Helmet>
-        <title> Register Account </title>
-      </Helmet>
-
       <StyledRoot>
         {mdUp && (
           <StyledSection>
@@ -76,7 +72,7 @@ export default function SignupPage() {
         <Container maxWidth="sm">
           <StyledContent>
             <Typography variant="h4" gutterBottom>
-              Sign Up
+              Register Account
             </Typography>
 
             <SignupForm />

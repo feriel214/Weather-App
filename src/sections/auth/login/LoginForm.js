@@ -12,7 +12,10 @@ import {
   Checkbox,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
+import * as React from "react";
 // components
 import Iconify from "../../../components/iconify";
 import axios from "axios";
@@ -24,6 +27,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("Tunisia");
+  const [error, setError] = useState(false);
   const user = { name: "John Doe" }; // or get user data from some other source
   const setUser = useContext(UserContext);
   const handleClick = () => {
@@ -41,10 +45,22 @@ export default function LoginForm() {
         navigate("/dashboard", { state: { userCountry: country } });
       })
       .catch((error) => {
+        setError(true);
+        setOpen(true);
         this.setState({ errorMessage: error.message });
         console.error("There was an error!", error);
       });
   };
+
+  const [open, setOpen] = React.useState(false);
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <>
       <Stack spacing={3}>
@@ -102,6 +118,25 @@ export default function LoginForm() {
           Login
         </LoadingButton>
       </Stack>
+
+      {error && (
+        <>
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+          >
+            <MuiAlert
+              onClose={handleClose}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              Check Your credantials !
+            </MuiAlert>
+          </Snackbar>
+        </>
+      )}
     </>
   );
 }
