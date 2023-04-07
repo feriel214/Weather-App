@@ -44,7 +44,7 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
   return (
     <StyledRoot>
       <StyledToolbar>
@@ -71,11 +71,11 @@ export default function Header({ onOpenNav }) {
           }}
         >
           {/* <AccountPopover />*/}
-          <UserContext.Provider value={setUser}>
+        
             <LanguagePopover />
             <NotificationsPopover />
-            <AccountPopover user={user} />
-          </UserContext.Provider>
+            <AccountPopover  />
+        
         </Stack>
       </StyledToolbar>
     </StyledRoot>

@@ -36,7 +36,7 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
-  const user = useContext(UserContext);
+  // const user = useContext(UserContext);
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -90,7 +90,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Hi , {user} {user.name}
+            {/* Hi , {user} {user.name} */}
           </Typography>
         </Box>
 

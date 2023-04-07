@@ -88,7 +88,7 @@ export default function LoginPage() {
               sx={{ my: 1 }}
             >
               <Link variant="subtitle2" underline="hover">
-                <span onClick={handleSignUp}>you already have an account</span>
+                <span onClick={handleSignUp}>Create an account</span>
               </Link>
             </Stack>
           </StyledContent>

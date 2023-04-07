@@ -40,7 +40,7 @@ const handleSearch = (e) => {
   return (
     <>
       <Helmet>
-        <title> Dashboard: Products | Minimal UI </title>
+        <title> Dashboard: History  </title>
       </Helmet>
 
       <Container>

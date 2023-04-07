@@ -35,6 +35,8 @@ Nav.propTypes = {
 };
 
 export default function Nav({ openNav, onCloseNav }) {
+  const location = useLocation();
+  const username = localStorage.getItem("user") || "user"
   const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg');
@@ -64,7 +66,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+               {username && username}
               </Typography>
 
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>

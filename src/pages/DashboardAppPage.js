@@ -23,17 +23,20 @@ import Weather from "src/components/weather/Weather";
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
-  const theme = useTheme();
-  const location = useLocation();
+  // const theme = useTheme();
+  // const location = useLocation();
+
   // const loggedUser = location.state.loggedUser;
   return (
     <>
-      <Helmet>
+      <Helmet> 
         <title> Weather </title>
+       
       </Helmet>
 
       <Container maxWidth="xl">
-        <Weather userCountry={location.state.userCountry} />
+        {/* userCountry={location && location.state.userCountry} */}
+        <Weather  />
         {/**  <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
             <AppWidgetSummary title="Weekly Sales" total={714000} icon={'ant-design:android-filled'} />

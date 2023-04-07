@@ -32,7 +32,9 @@ export default function SignupForm() {
         password: password,
       })
       .then((response) =>
-        navigate("/dashboard", { state: { userCountry: country } })
+      {localStorage.setItem("user" , email);
+      localStorage.setItem("country", country )
+        navigate("/dashboard/app", { state: { userCountry: country } })}
       )
       .catch((error) => {
         setError(true);

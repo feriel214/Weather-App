@@ -53,7 +53,7 @@ export default function SignupPage() {
   const mdUp = useResponsive("up", "md");
   const navigate = useNavigate();
   const handleSignIn = () => {
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
   return (
     <>
@@ -83,7 +83,7 @@ export default function SignupPage() {
               sx={{ my: 1 }}
             >
               <Link variant="subtitle2" underline="hover">
-                <span onClick={handleSignIn}>create an account</span>
+                <span onClick={handleSignIn}>you already have an account </span>
               </Link>
             </Stack>
           </StyledContent>

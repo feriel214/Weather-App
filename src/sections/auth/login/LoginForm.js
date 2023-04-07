@@ -28,8 +28,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState("Tunisia");
   const [error, setError] = useState(false);
-  const user = { name: "John Doe" }; // or get user data from some other source
-  const setUser = useContext(UserContext);
+ 
   const handleClick = () => {
     console.log("username: ", email, "password:", password);
     axios
@@ -39,10 +38,10 @@ export default function LoginForm() {
       })
       .then((response) => {
         console.log("response", response.data);
-
-        setUser(user);
-        // navigate("/dashboard", { state: { loggedUser: email } }); //country by default
-        navigate("/dashboard", { state: { userCountry: country } });
+        console.log("country",country);
+        localStorage.setItem("user", email )
+        localStorage.setItem("country", country )
+    navigate("/dashboard/app", { state: { userCountry: country , user : email } });
       })
       .catch((error) => {
         setError(true);

@@ -16,20 +16,25 @@ import SignupPage from "./pages/SignupPage";
 export default function Router() {
   const routes = useRoutes([
     {
+      path: "",
+      children: [
+      { element: <Navigate to="/login" />},
+      { element : <LoginPage />,index: true}
+      ]
+    },
+    {
       path: "/dashboard",
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/dashboard/app" />},
         { path: "app", element: <DashboardAppPage /> },
         { path: "user", element: <UserPage /> },
         { path: "products", element: <ProductsPage /> },
         { path: "blog", element: <BlogPage /> },
+        
       ],
     },
-    {
-      path: "login",
-      element: <LoginPage />,
-    },
+  
     {
       path: "signup",
       element: <SignupPage />,
@@ -37,7 +42,7 @@ export default function Router() {
     {
       element: <SimpleLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" />, index: true },
+        { element: <Navigate to="/dashboard/app" /> },
         { path: "404", element: <Page404 /> },
         { path: "*", element: <Navigate to="/404" /> },
       ],

@@ -2,20 +2,39 @@ import { CircularProgress, Slide, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./weather.css";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 export default function Weather(props) {
-  const [cityName, setCityName] = useState(props.userCountry);
-  const [inputText, setInputText] = useState("");
+  const location = useLocation();
+  const userCountry = localStorage.getItem("country") ;
+  const [inputText, setInputText] = useState(userCountry);
   const [data, setData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [cityName, setCityName] = useState("");
+ 
+  console.log("c fel wether ",  userCountry && userCountry)
   const kelvinToCelsiu = (kelvin) => {
     const celsius = kelvin - 273.15;
     return celsius.toFixed(2);
   };
+  
   useEffect(() => {
-    axios
+    if(cityName.length === 0) {
+      axios
+      .get(`http://localhost:5001/weather/${userCountry}`)
+      .then((res) => {
+        error && setError(false);
+        console.log("res: ", res);
+        console.log("res.data : ", res.data.data);
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+    }
+    else{
+      axios
       .get(`http://localhost:5001/weather/${cityName}`)
       .then((res) => {
         error && setError(false);
@@ -26,6 +45,8 @@ export default function Weather(props) {
       .catch((err) => {
         console.log("err", err);
       });
+    }
+    
   }, [cityName, error]);
 
   const handleSearch = (e) => {
@@ -50,7 +71,7 @@ export default function Weather(props) {
         <h1 className="city"></h1>
         <div className="group">
           {/*<img src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`} alt="" />*/}
-          <h1>{data.Country}</h1>
+          <h1>{cityName || data.Country}</h1>
         </div>
         {/** Temperature **/}
 
